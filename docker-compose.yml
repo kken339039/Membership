@@ -2,7 +2,7 @@ version: "2"
 services:
   postgres:
     image: postgres:9.6
-    container_name: postgres
+    container_name: db-postgres
     volumes:
       - ./tmp/data/postgresql:/var/lib/postgresql/data
     expose:
