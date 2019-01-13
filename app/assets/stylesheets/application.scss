@@ -1,46 +1,58 @@
- @import "bootstrap";
- @import "products";
+@import 'bootstrap';
+@import 'products';
 
- body{
-   font-size: 16px;
-   text-align: center;
- }
+body {
+  font-size: 16px;
+  text-align: center;
+}
 
- .flash-msg{
-   position: fixed;
-   width: 100%;
-   top: 40px;
- }
+.flash-msg {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
 
- .session-page{
-   margin: 0 25%;
-   text-align: left;
- }
+.session-page {
+  margin: 0 25%;
+  text-align: left;
+}
 
- .navbar,
- .page-title {
-   margin-bottom: 1.5rem;
- }
+.navbar,
+.page-title {
+  margin-bottom: 1.5rem;
+}
 
- .page-title{
-   text-align: center;
- }
+.page-title {
+  text-align: center;
+}
 
- .system-title-icon{
-   text-align: left;
-   width: calc(100% - 5rem);
- }
+.system-title-icon {
+  text-align: left;
+  width: calc(100% - 5rem);
+  a:hover {
+    color: #b3b3b3 !important;
+  }
+}
 
- .user-selection{
-   position: static;
-   right: auto;
-   text-align: left;
-   width: 10rem;
- }
+.error_explanation {
+  ul {
+    display: inline-block;
+    color: red;
+  }
+}
 
- .error_explanation{
-   ul{
-     display: inline-block;
-     color: red;
-   }
- }
+.user-selection {
+  position: static;
+  right: auto;
+  text-align: left;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #drop-down-list {
+    display: initial !important;
+    ul {
+      float: right;
+    }
+  }
+}

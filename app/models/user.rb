@@ -15,6 +15,10 @@ class User < ApplicationRecord
     roles.find_by(name: 'premium').present?
   end
 
+  def is_normal?
+    !is_premium?
+  end
+
   private
   def set_default_role
     self.roles << Role.find_by_name('normal')

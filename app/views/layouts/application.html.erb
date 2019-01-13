@@ -31,11 +31,21 @@
       </div>
       <div class="collapse navbar-collapse justify-content-sm-center user-selection" id="drop-down-list">
         <ul class="navbar-nav">
-         <% if current_user %>
-
-         <% elsif current_user.is_admin? %>
-
-        <%else%
+        <% if current_user %>
+          <% if current_user.is_normal? %>
+            <li class="nav-link">
+              <%= link_to "Upgrade Premium", roles_upgrade_premium_path, class: "badge badge-pill badge-info" %>
+            </li>
+          <% elsif current_user.is_premium? %>
+            <li class="nav-link">
+              <span class="badge badge-pill badge-warning">Premium</span>
+            </li>
+          <% end %>
+          <span class="navbar-text">
+            <%= current_user.email %>
+          </span>
+          <%= link_to "Log out", destroy_user_session_path, class: "nav-link", method: :delete %>
+        <% else %>
           <li class="nav-item">
             <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
           </li>
