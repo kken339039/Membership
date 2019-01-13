@@ -1,5 +1,6 @@
 @import 'bootstrap';
 @import 'products';
+@import 'users';
 
 body {
   font-size: 16px;
@@ -12,9 +13,24 @@ body {
   top: 0;
 }
 
+.session-action {
+  border: 1px solid;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
 .session-page {
   margin: 0 25%;
   text-align: left;
+}
+
+.premium-user-icon {
+  margin-right: 3px;
+  margin-top: 7px;
+  padding: 4px 10px;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #ffd700;
 }
 
 .navbar,
@@ -54,5 +70,11 @@ body {
     ul {
       float: right;
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .session-action {
+    border: 0;
   }
 }
