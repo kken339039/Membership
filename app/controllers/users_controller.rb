@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_admin, only: [:index]
+  before_action :authorize_admin
   before_action :set_user, only: [:promote, :demote]
 
   def index

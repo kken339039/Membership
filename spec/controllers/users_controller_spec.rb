@@ -38,4 +38,32 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(users_url)
     end
   end
+
+  describe "Normal user" do
+    before do
+      normal_login
+    end
+
+    it "#index" do
+      get :index
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_url)
+    end
+
+    it "#promotion" do
+      post :promote, params: { user_id: @user.id }
+      message = flash[:alert]
+      expect(message).to eq("You are not Admin user, not allow to access this page")
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_url)
+    end
+
+    it "#demotion" do
+      post :demote, params: { user_id: @user.id }
+      message = flash[:alert]
+      expect(message).to eq("You are not Admin user, not allow to access this page")
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_url)
+    end
+  end
 end
