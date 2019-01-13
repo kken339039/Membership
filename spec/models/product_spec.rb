@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Model relation' do
+    it { should have_many(:product_images) }
+    it { should have_many(:images) }
+  end
 end

@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 #
 ruby '2.4.4'
 gem 'rails', '~> 5.2.0'
+gem 'faker'
 
 # user_role_control
 gem 'devise'
@@ -38,7 +39,6 @@ gem 'kaminari'
 group :development, :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
-  gem 'faker'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'shoulda'
