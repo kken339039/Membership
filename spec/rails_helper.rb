@@ -63,9 +63,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include FactoryBot::Syntax::Methods
-  config.include CustomHelper
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
@@ -77,7 +74,10 @@ RSpec.configure do |config|
     end
   end
 
-  # Devise
+  config.include FactoryBot::Syntax::Methods
+  config.include CustomHelper
+
+ # Devise
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include RequestSpecHelper, type: :request
