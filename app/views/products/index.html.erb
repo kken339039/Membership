@@ -1,0 +1,19 @@
+<div class="page-title">
+  <h3>Product List</h3>
+</div>
+<div class="row justify-content-sm-center">
+  <% @products.each do |prod| %>
+    <div class="col-md-auto col-sm-12 mb-4">
+      <div class="card product-list-item" style="width: 20rem;">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= prod.name %>
+          </h5>
+          <p class="card-text">
+            Price: <%= number_to_currency(prod.price) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
