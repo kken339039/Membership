@@ -15,7 +15,16 @@
             <%= prod.name %>
           </h5>
           <p class="card-text">
-            Price: <%= number_to_currency(prod.price) %>
+            <% if current_user.try(:is_premium?) %>
+              Price: <%= number_to_currency((prod.price * 0.8)) %>
+            <% else %>
+              Price: <%= number_to_currency(prod.price) %>
+            <% end %>
+            <% if current_user.try(:is_admin?) %>
+              <div class="pull-right">
+                <%= link_to "Edit Product", edit_product_path(prod), class: "btn btn-outline-primary" %>
+              </div>
+            <% end %>
           </p>
         </div>
       </div>
