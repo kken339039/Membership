@@ -1,1 +1,80 @@
- @import "bootstrap";
+@import 'bootstrap';
+@import 'products';
+@import 'users';
+
+body {
+  font-size: 16px;
+  text-align: center;
+}
+
+.flash-msg {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.session-action {
+  border: 1px solid;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.session-page {
+  margin: 0 25%;
+  text-align: left;
+}
+
+.premium-user-icon {
+  margin-right: 3px;
+  margin-top: 7px;
+  padding: 4px 10px;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #ffd700;
+}
+
+.navbar,
+.page-title {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  text-align: center;
+}
+
+.system-title-icon {
+  text-align: left;
+  width: calc(100% - 5rem);
+  a:hover {
+    color: #b3b3b3 !important;
+  }
+}
+
+.error_explanation {
+  ul {
+    display: inline-block;
+    color: red;
+  }
+}
+
+.user-selection {
+  position: static;
+  right: auto;
+  text-align: left;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #drop-down-list {
+    display: initial !important;
+    ul {
+      float: right;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .session-action {
+    border: 0;
+  }
+}

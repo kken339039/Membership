@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :users, only: [:index] do
+    post :promote
+    delete :demote
+  end
+
+  resources :products, only: [:index]
+  get "roles/upgrade_premium"
+  
+  root "products#index"
 end
