@@ -2,7 +2,7 @@ class CreateProducts < ActiveRecord::Migration[5.2]
   def up
     create_table :products do |t|
       t.string :name
-      t.string :price
+      t.integer :price, default: 0
 
       t.timestamps
     end
