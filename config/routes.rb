@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     delete :demote
   end
 
-  resources :products, only: [:index]
+  resources :products, except: [:destroy]
+
   get "roles/upgrade_premium"
-  
   root "products#index"
 end
