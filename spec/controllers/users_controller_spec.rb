@@ -6,8 +6,6 @@ RSpec.describe UsersController, type: :controller do
     before do
       admin_login
       @normal_user = create(:user)
-      @admin_user = FactoryBot.create(:user)
-      @admin_user.roles << Role.find_by(name: "admin")
     end
 
     it "#index" do
@@ -24,16 +22,22 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(users_url)
     end
 
-    it "#demotion cueent_user and promoted_user" do
-      delete :demote, params: { user_id: @admin_user.id }
-      result = @admin_user.is_admin?
+    it "#demote admin_user" do
+      admin_user = FactoryBot.create(:user)
+      admin_user.roles << Role.find_by(name: "admin")
+
+      delete :demote, params: { user_id: admin_user.id }
+      result = admin_user.is_admin?
       expect(result).to eq(false)
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(users_url)
+   end
 
+   it "#demote last_admin_user" do
       delete :demote, params: { user_id: @user.id }
       result = @user.is_admin?
       expect(result).to eq(true)
+      expect(flash[:alert]).to eq("Demote fail, #{@user.email} is last Admin user!" )
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(users_url)
     end
@@ -52,16 +56,14 @@ RSpec.describe UsersController, type: :controller do
 
     it "#promotion" do
       post :promote, params: { user_id: @user.id }
-      message = flash[:alert]
-      expect(message).to eq("You are not Admin user, not allow to access this page")
+      expect(flash[:alert]).to eq("You are not Admin user, not allow to access this page")
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_url)
     end
 
     it "#demotion" do
       post :demote, params: { user_id: @user.id }
-      message = flash[:alert]
-      expect(message).to eq("You are not Admin user, not allow to access this page")
+      expect(flash[:alert]).to eq("You are not Admin user, not allow to access this page")
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_url)
     end
