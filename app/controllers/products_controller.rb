@@ -14,6 +14,7 @@ class ProductsController < ApplicationController
     @product = Product.create!(product_params)
     mes = "Create New Product"
     if @product
+      save_image
       flash[:notice] = mes + " Success"
       redirect_to root_path
     else
@@ -25,6 +26,7 @@ class ProductsController < ApplicationController
   def update
     mes = "Update Product"
     if @product.update!(product_params)
+      save_image
       flash[:notice] = mes + " Success"
       redirect_to root_path
     else
@@ -36,10 +38,18 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :image)
+    params.require(:product).permit(:name, :price)
   end
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.includes(:images).find(params[:id])
+  end
+
+  def save_image
+    image = Image.create!(params.require(:product).permit(:image))
+    product_images =  @product.images 
+
+    product_images << image
+    product_images.delete(product_images.first.id) if product_images.length > 3 
   end
 end
