@@ -9,7 +9,54 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <script type="text/javascript">
+  
+    $(document).ready(function(){
+      setTimeout(function() {
+        $('.flash-msg').slideUp();
+      }, 2000);
+    });
+
+  </script>
+
   <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#drop-down-list" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="system-title-icon">
+        <%= link_to "Membership System", root_path, class: "navbar-brand" %>
+      </div>
+      <div class="collapse navbar-collapse justify-content-sm-center user-selection" id="drop-down-list">
+        <ul class="navbar-nav">
+         <% if current_user %>
+
+         <% elsif current_user.is_admin? %>
+
+        <%else%
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <% if notice.present? %>
+      <div class="alert alert-success flash-msg" role="alert">
+        <span><%= notice %> This will close after 2 seconds</span>
+      </div>
+    <% elsif alert.present? %>
+      <div class="alert alert-warning flash-msg" role="alert">
+        <span><%= alert %> This will close after 2 seconds</span>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

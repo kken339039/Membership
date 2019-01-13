@@ -1,1 +1,46 @@
  @import "bootstrap";
+ @import "products";
+
+ body{
+   font-size: 16px;
+   text-align: center;
+ }
+
+ .flash-msg{
+   position: fixed;
+   width: 100%;
+   top: 40px;
+ }
+
+ .session-page{
+   margin: 0 25%;
+   text-align: left;
+ }
+
+ .navbar,
+ .page-title {
+   margin-bottom: 1.5rem;
+ }
+
+ .page-title{
+   text-align: center;
+ }
+
+ .system-title-icon{
+   text-align: left;
+   width: calc(100% - 5rem);
+ }
+
+ .user-selection{
+   position: static;
+   right: auto;
+   text-align: left;
+   width: 10rem;
+ }
+
+ .error_explanation{
+   ul{
+     display: inline-block;
+     color: red;
+   }
+ }
