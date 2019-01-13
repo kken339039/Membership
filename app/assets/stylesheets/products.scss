@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.product-list-item{
+.product-list-item {
   margin: auto;
+}
+
+.product-title {
+  span {
+    font-size: 2rem;
+  }
+  .create-btn{
+    position: absolute;
+    display: inline-block;
+    right: 25px;
+  }
 }

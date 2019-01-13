@@ -1,5 +1,10 @@
 <div class="page-title">
-  <h3>Product List</h3>
+  <div class="product-title">
+    <span>Product List</span>
+    <div class="create-btn">
+      <%= link_to "New Product", new_product_path, class: "btn btn-success" %>
+    </div>
+  </div>
 </div>
 <div class="row justify-content-sm-center">
   <% @products.each do |prod| %>
@@ -10,7 +15,16 @@
             <%= prod.name %>
           </h5>
           <p class="card-text">
-            Price: <%= number_to_currency(prod.price) %>
+            <% if current_user.try(:is_premium?) %>
+              Price: <%= number_to_currency((prod.price * 0.8)) %>
+            <% else %>
+              Price: <%= number_to_currency(prod.price) %>
+            <% end %>
+            <% if current_user.try(:is_admin?) %>
+              <div class="pull-right">
+                <%= link_to "Edit Product", edit_product_path(prod), class: "btn btn-outline-primary" %>
+              </div>
+            <% end %>
           </p>
         </div>
       </div>

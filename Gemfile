@@ -26,6 +26,12 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootsnap'
 gem 'bootstrap'
 
+# uploader
+gem 'carrierwave'
+
+# image
+gem 'mini_magick'
+
 # page
 gem 'kaminari'
 

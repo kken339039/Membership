@@ -19,7 +19,8 @@ body {
   margin: 0 5px;
 }
 
-.session-page {
+.product-form,
+.session-form {
   margin: 0 25%;
   text-align: left;
 }
@@ -77,4 +78,8 @@ body {
   .session-action {
     border: 0;
   }
+}
+
+.pull-right{
+  float: right;
 }
