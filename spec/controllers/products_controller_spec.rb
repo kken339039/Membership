@@ -4,7 +4,6 @@ RSpec.describe ProductsController, type: :controller do
   before do
     @image = Rack::Test::UploadedFile.new(Rails.root.join("spec/files/images/test.png"))
     @product = FactoryBot.create(:product)
-    @new_product = { name: "product_test", price: 2000, image: @image }
   end
 
   describe "Without login user" do
@@ -20,7 +19,7 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     it "#create new product" do
-      post :create, params: { product: @new_product }
+      post :create, params: { product: product_params }
 
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
@@ -35,7 +34,7 @@ RSpec.describe ProductsController, type: :controller do
     it "#update product" do
       patch :update, params: { 
                       id: @product.id,
-                      product: @new_product.merge(price: 5000)
+                      product: product_params.merge(price: 5000)
                     }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
@@ -60,7 +59,7 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     it "#create new product" do
-      post :create, params: { product: @new_product }
+      post :create, params: { product: product_params }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
     end
@@ -74,7 +73,7 @@ RSpec.describe ProductsController, type: :controller do
     it "#update product" do
       patch :update, params: { 
                       id: @product.id,
-                      product: @new_product.merge(price: 5000)
+                      product: product_params.merge(price: 5000)
                     }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
@@ -100,7 +99,7 @@ RSpec.describe ProductsController, type: :controller do
 
     it "#create new product" do
       counts =  Product.count
-      post :create, params: { product: @new_product }
+      post :create, params: { product: product_params }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
       expect(response).to be_truthy
@@ -117,12 +116,30 @@ RSpec.describe ProductsController, type: :controller do
       counts =  Product.count
       patch :update, params: { 
                       id: @product.id,
-                      product: @new_product.merge(price: 5000)
+                      product: product_params.merge(price: 5000)
                     }
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
       expect(response).to be_truthy
       expect(Product.count).to eq counts
     end
+  end
+
+  describe "Login as premium user" do
+    before do
+      premium_login
+    end
+
+    it "#list products" do
+      get :index
+      expect(response).to render_template(:index)
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  private
+
+  def product_params
+    { name: "product_test", price: 2000, image: @image }
   end
 end
