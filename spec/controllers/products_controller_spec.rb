@@ -80,4 +80,49 @@ RSpec.describe ProductsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe "Login as admin user" do
+    before do
+      admin_login
+    end
+
+    it "#list products" do
+      get :index
+      expect(response).to render_template(:index)
+      expect(response).to have_http_status(200)
+    end
+
+    it "#get new product" do
+      get :new
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:new)
+    end
+
+    it "#create new product" do
+      counts =  Product.count
+      post :create, params: { product: @new_product }
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_path)
+      expect(response).to be_truthy
+      expect(Product.count).to eq counts += 1
+    end
+
+    it "#edit product" do
+      get :edit, params: { id: @product.id }
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:edit)
+    end
+
+    it "#update product" do
+      counts =  Product.count
+      patch :update, params: { 
+                      id: @product.id,
+                      product: @new_product.merge(price: 5000)
+                    }
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_path)
+      expect(response).to be_truthy
+      expect(Product.count).to eq counts
+    end
+  end
 end
