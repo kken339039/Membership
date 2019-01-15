@@ -17,4 +17,11 @@ jobs:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
       - run:  sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java; sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac; echo -e "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> $BASH_ENV
-      - run: rm -f ~/erp/.rvmrc; echo 2.4.4 > ~/erp/.ruby-version; rvm use 2.4.4 --default
+      - run: rm -f ~/Membership/.rvmrc; echo 2.4.4 > ~/Membership/.ruby-version; rvm use 2.4.4 --default
+      - run: curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - run: sudo dpkg -i google-chrome.deb
+      - run: sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+      - run: rm google-chrome.deb
+      - run: gem install bundler
+      - run: cp config/database.example.yml config/database.yml
+      - run: bundle exec rake db:create db:migrate --trace
