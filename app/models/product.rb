@@ -3,4 +3,5 @@ class Product < ApplicationRecord
   has_many :images, through: :product_images, source: :image
 
   validates_presence_of :name, :price
+  validates :price, numericality: { only_integer: true }
 end
