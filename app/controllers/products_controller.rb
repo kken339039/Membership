@@ -46,6 +46,7 @@ class ProductsController < ApplicationController
   end
 
   def save_image
+    
     image = Image.create!(params.require(:product).permit(:image))
     product_images =  @product.images 
 
