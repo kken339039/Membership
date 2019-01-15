@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Model relation' do
-    it { should have_many(:user_roles) }
+    it { should have_many(:users_roles) }
     it { should have_many(:roles) }
   end
 
@@ -38,23 +38,19 @@ RSpec.describe User, type: :model do
         @user = FactoryBot.create(:user)
       end
 
-      it 'exist?' do
-        expect(@user).to respond_to(:is_admin?)
-      end
-
       describe 'user validate' do
         it 'normal user' do
-          expect(@user.is_admin?).to eq(false)
+          expect(@user.has_role?(:admin)).to eq(false)
         end
 
         it 'admin user' do
           @user.roles << FactoryBot.create(:role, :admin_role)
-          expect(@user.is_admin?).to eq(true)
+          expect(@user.has_role?(:admin)).to eq(true)
         end
 
         it 'premium user' do
           @user.roles << FactoryBot.create(:role, :premium_role)
-          expect(@user.is_admin?).to eq(false)
+          expect(@user.has_role?(:admin)).to eq(false)
         end
       end
     end
@@ -64,23 +60,19 @@ RSpec.describe User, type: :model do
         @user = FactoryBot.create(:user)
       end
 
-      it 'exist?' do
-        expect(@user).to respond_to(:is_premium?)
-      end
-
       describe 'user validate' do
         it 'normal user' do
-          expect(@user.is_premium?).to eq(false)
+          expect(@user.has_role?(:premium)).to eq(false)
         end
 
         it 'admin user' do
           @user.roles << FactoryBot.create(:role, :admin_role)
-          expect(@user.is_premium?).to eq(false)
+          expect(@user.has_role?(:premium)).to eq(false)
         end
 
         it 'premium user' do
           @user.roles << FactoryBot.create(:role, :premium_role)
-          expect(@user.is_premium?).to eq(true)
+          expect(@user.has_role?(:premium)).to eq(true)
         end
       end
     end
