@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserRole, type: :model do
+RSpec.describe UsersRole, type: :model do
   describe 'Model relation' do
     it { should belong_to(:user) }
     it { should belong_to(:role) }
@@ -10,7 +10,7 @@ RSpec.describe UserRole, type: :model do
     it "uniqueness" do
       create(:user, id: 1)
       create(:role, id: 1)
-      expect(create(:user_role)).to validate_uniqueness_of(:user_id).scoped_to(:role_id)
+      expect(create(:users_role)).to validate_uniqueness_of(:user_id).scoped_to(:role_id)
     end
   end
 end

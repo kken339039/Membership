@@ -16,7 +16,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "#promotion" do
       post :promote, params: { user_id: @normal_user.id }
-      result = @normal_user.is_admin?
+      result = @normal_user.has_role?(:admin)
       expect(result).to eq(true)
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(users_url)
@@ -27,7 +27,7 @@ RSpec.describe UsersController, type: :controller do
       admin_user.roles << Role.find_by(name: "admin")
 
       delete :demote, params: { user_id: admin_user.id }
-      result = admin_user.is_admin?
+      result = admin_user.has_role?(:admin)
       expect(result).to eq(false)
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(users_url)
@@ -35,7 +35,7 @@ RSpec.describe UsersController, type: :controller do
 
    it "#demote last_admin_user" do
       delete :demote, params: { user_id: @user.id }
-      result = @user.is_admin?
+      result = @user.has_role?(:admin)
       expect(result).to eq(true)
       expect(flash[:alert]).to eq("Demote fail, #{@user.email} is last Admin user!" )
       expect(response).to have_http_status(302)
