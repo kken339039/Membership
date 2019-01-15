@@ -47,6 +47,7 @@ jobs:
 
       - run: cp config/database.example.yml config/database.yml
       - run: bundle exec rake db:create db:migrate --trace
+      - run: bundle exec rspec --color --tag ~@feature
 
       - store_test_results:
           path: /tmp/circleci-test-results
