@@ -1,13 +1,13 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: 
-  password: 
+  username: membership_db_user
+  password: membership_db_password
   host: localhost
+  port: 9999
 
 development:
   <<: *default
-  port: 5432
   database: membership_dvelopment
 
 test:

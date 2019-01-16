@@ -27,7 +27,7 @@ ActiveRecord::Base.transaction do
   Image.destroy_all
 
   20.times do 
-    picture = Product.create!(name:  Faker::Name.name, price: rand(10000))
+    picture = Product.create!(name: Faker::Name.name, price: rand(10000))
     Faker::Placeholdit.image("50x50", 'jpg', 'ffffff', '000', 'Some Custom Text')
     picture.images << Image.create!(
       remote_image_url: Faker::Placeholdit.image("300x300", 'jpg', Faker::Color.hex_color.gsub('#',''), '000', picture.name)

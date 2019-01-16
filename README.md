@@ -11,6 +11,10 @@ $ git clone git@github.com:kken339039/Membership.git
 ## Environment
   - Ruby version 2.4.4
   - Rails version 5.2.0
+## Necessary but version can be different
+  - postgres
+  - devise
+  - rolify
 
 #### Necessary but version can be different
   - postgres
