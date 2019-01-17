@@ -9,7 +9,79 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <script type="text/javascript">
+  
+    $(document).ready(function(){
+      setTimeout(function() {
+        $('.flash-msg').slideUp();
+      }, 3000);
+    });
+
+  </script>
+
   <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#drop-down-list" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="system-title-icon">
+        <%= link_to "Membership System", root_path, class: "navbar-brand" %>
+      </div>
+      <div class="collapse navbar-collapse justify-content-sm-center user-selection" id="drop-down-list">
+        <ul class="navbar-nav">
+        <% if current_user %>
+          <% if current_user.has_role?(:premium) %>
+            <li class="nav-item">
+              <div class="premium-user-icon">
+                Premium
+              </div>
+            </li>
+          <% else %>
+            <li class="nav-link">
+              <%= link_to "Upgrade Premium", roles_upgrade_premium_path, class: "btn btn-warning btn-sm" %>
+            </li>
+          <% end %>
+          <% if current_user.has_role?(:admin)  %>
+            <li class="nav-link">
+              <%= link_to "Admin Region", users_path, class: "btn btn-info btn-sm" %>
+            </li>
+          <% end %>
+          <span class="navbar-text">
+            <%= current_user.email %>
+          </span>
+          <li class="nav-link">
+            <%= link_to "Log out", destroy_user_session_path, class: "btn btn-outline-secondary btn-sm", method: :delete %>
+            </li>
+        <% else %>
+          <li class="nav-link">
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-secondary btn-sm" %>
+          </li>
+          <li class="nav-link">
+            <%= link_to "Log in", new_user_session_path, class: "btn btn-outline-secondary btn-sm" %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <% if notice.present? %>
+      <div class="alert alert-success flash-msg" role="alert">
+        <span><%= notice %>  This will close after 3 seconds</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% elsif alert.present? %>
+      <div class="alert alert-warning flash-msg" role="alert">
+        <span><%= alert %>  This will close after 3 seconds</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

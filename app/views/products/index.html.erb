@@ -1,0 +1,40 @@
+<div class="page-title">
+  <div class="product-title">
+    <span>Product List</span>
+    <% if current_user && current_user.has_role?(:admin) %>
+      <div class="create-btn">
+        <%= link_to "New Product", new_product_path, class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row justify-content-sm-center">
+  <% @products.each do |prod| %>
+    <div class="col-md-auto col-sm-12 mb-4">
+      <div class="card product-list-item" style="width: 20rem;">
+        <%= image_tag prod.images.last.image_url, class: 'card-img-top product-image', alt: 'Card image cap' if prod.images.last.image.present? %>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= prod.name %>
+          </h5>
+          <p class="card-text">
+            <% if current_user %>
+              <% if current_user.has_role?(:premium) %>
+                Price: <%= number_to_currency((prod.price * 0.8)) %>
+              <% else %>
+                Price: <%= number_to_currency(prod.price) %>
+              <% end %>
+              <% if current_user.has_role?(:admin) %>
+                <div class="pull-right">
+                  <%= link_to "Edit Product", edit_product_path(prod), class: "btn btn-outline-primary" %>
+                </div>
+              <% end %>
+            <% else %>
+              Price: <%= number_to_currency(prod.price) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
