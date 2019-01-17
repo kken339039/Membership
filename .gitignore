@@ -32,4 +32,5 @@
 /config/master.key
 
 # system config
+config/secrets.yml
 config/database.yml

@@ -1,0 +1,1 @@
+server '34.80.252.245', user: 'deploy', roles: %w{app db web}, my_property: :my_value
