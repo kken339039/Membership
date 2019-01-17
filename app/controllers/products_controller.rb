@@ -11,26 +11,26 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create!(product_params)
-    mes = "Create New Product"
-    if @product
+    begin
+      @product = Product.create!(product_params)
       save_image
-      flash[:notice] = mes + " Success"
+      flash[:notice] = "Create New Product Success"
       redirect_to root_path
-    else
-      flash[:alert] = mes + " Fail"
+    rescue => e
+      flash[:alert]= e.message
       redirect_back(fallback_location: new_product_path)
     end
   end
 
   def update
-    mes = "Update Product"
-    if @product.update!(product_params)
+    begin
+      @product.update!(product_params)
       save_image
-      flash[:notice] = mes + " Success"
+      flash[:notice] = "Update Product Success"
       redirect_to root_path
-    else
-      flash[:alert] = mes + " Fail"
+    rescue => e
+      # binding.pry
+      flash[:alert] = e.message
       redirect_back(fallback_location: edit_product_path)
     end
   end
@@ -46,11 +46,10 @@ class ProductsController < ApplicationController
   end
 
   def save_image
-    
-    image = Image.create!(params.require(:product).permit(:image))
-    product_images =  @product.images 
+    return if params[:product][:image].nil?
 
-    product_images << image
-    product_images.delete(product_images.first.id) if product_images.length > 3 
+    product_images =  @product.images 
+    image = Image.create!(params.require(:product).permit(:image))
+    @product.images  << image
   end
 end
