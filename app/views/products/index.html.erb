@@ -12,7 +12,7 @@
   <% @products.each do |prod| %>
     <div class="col-md-auto col-sm-12 mb-4">
       <div class="card product-list-item" style="width: 20rem;">
-        <%= image_tag prod.images.last.image_url, class: 'card-img-top product-image', alt: 'Card image cap' if prod.images.present? %>
+        <%= image_tag prod.images.last.image_url, class: 'card-img-top product-image', alt: 'Card image cap' if prod.images.last.image.present? %>
         <div class="card-body">
           <h5 class="card-title">
             <%= prod.name %>
