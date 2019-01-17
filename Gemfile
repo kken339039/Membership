@@ -43,6 +43,10 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'pry'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
 end
 
 group :development do
@@ -56,6 +60,10 @@ group :test do
   gem 'sqlite3'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+end
+
+group :production do
+  gem 'listen', '>= 3.0.5', '< 3.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
