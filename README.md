@@ -71,6 +71,10 @@ $ git clone git@github.com:kken339039/Membership.git
   $ rails db:seed:rake db:seed:fake_records
   ```
 
+#### CI Server
+Use CircleCI(https://circleci.com/). All pushes, pull requests are tested,
+it include run rspec
+
 #### After you create fake data, you can log in using the account below.
   - Admin User email: admin_user@gm.com, password: abc12345
   - Premium User email: premium_user@gm.com, password: abc12345
