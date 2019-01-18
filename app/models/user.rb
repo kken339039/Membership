@@ -9,15 +9,8 @@ class User < ApplicationRecord
 
   after_create :set_default_role
 
-  # def is_admin?
-  #   roles.find_by(name: 'admin').present?
-  # end
-
-  # def is_premium?
-  #   roles.find_by(name: 'premium').present?
-  # end
-
   private
+  
   def set_default_role
     self.roles << Role.find_by_name('normal')
   end
